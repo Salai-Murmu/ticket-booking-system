@@ -15,11 +15,29 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Please provide a password'],
         minlength: 8
     },
+    confirmPassword: {
+        type: String,
+        required: [true, 'Please confirm your password'],
+        validate: {
+            validator: function(value) {
+                return value === this.password;
+            },
+            message: 'Passwords do not match',
+        },
+    },
     createdAt: {
         type: Date,
         default: Date.now()
     }
-})
+});
+
+// Remove the pre middleware
+// userSchema.pre('save', function(next) {
+//     if (this.password !== this.confirmPassword) {
+//         return next(new Error('Passwords do not match'));
+//     }
+//     next();
+// });
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

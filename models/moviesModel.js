@@ -17,7 +17,7 @@ const movieSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide a description']
     },
-    createdAtr: {
+    createdAt: {
         type: Date,
         default: Date.now()
     }
